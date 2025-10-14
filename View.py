@@ -80,26 +80,26 @@ class TruyTimKhoBauView():
             self.bg_color = "#1a1a2e"
             self.grass_color = "#4CAF50"
             self.wall_color = "#8D6E63"
-            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/bg_music.mp3"
+            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/bg_music.mp3"
 
         elif self.selected_map == "ocean":
             self.bg_color = "#001F3F"
             self.grass_color = "#0097A7"
             self.wall_color = "#006064"
-            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/ocean.mp3"  # nhạc sóng biển
+            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/ocean.mp3"  # nhạc sóng biển
 
         elif self.selected_map == "halloween":
             self.bg_color = "#2E1A47"
             self.grass_color = "#8E24AA"
             self.wall_color = "#BF360C"
-            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/halloween.mp3"
+            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/halloween.mp3"
 
         else:
             # fallback
             self.bg_color = "#1a1a2e"
             self.grass_color = "#4CAF50"
             self.wall_color = "#8D6E63"
-            self.music_path = r"D:\HCMUTE_IT\HK1_2025-2026\Artificial Intelligence\BaoCaoCuoiKy\Demo1\project_nhom_AI\AI_TruyTimKhoBau_2025\sounds\bg_music.mp3"
+            self.music_path = r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/bg_music.mp3"
 
         # --- Phát nhạc nền ---
         try:
@@ -175,7 +175,7 @@ class TruyTimKhoBauView():
         
         return ImageTk.PhotoImage(img)
 
-    def ve_player(self, size, path=r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/boy.png"):
+    def ve_player(self, size, path=r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/boy.png"):
         """Load ảnh cậu bé player, tự xóa nền trắng và scale vừa khít ô"""
         from PIL import Image, ImageTk
 
@@ -212,7 +212,7 @@ class TruyTimKhoBauView():
             return ImageTk.PhotoImage(fallback)
 
 
-    def ve_kho_bau(self, size, path=r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/treasure.png"):
+    def ve_kho_bau(self, size, path=r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/treasure.png"):
         """Load hình kho báu từ file và scale vừa khít ô"""
         from PIL import Image, ImageTk
 
@@ -473,9 +473,9 @@ class TruyTimKhoBauView():
         self.grass_dark = self.ve_grass(self.cell_size, True)
         self.wall_texture = self.ve_wall(self.cell_size)
         #self.player_sprite = self.ve_player(self.cell_size)
-        self.player_sprite = self.ve_player(self.cell_size, "D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/boy.png")
+        self.player_sprite = self.ve_player(self.cell_size, "D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/boy.png")
         #self.treasure_sprite = self.ve_kho_bau(self.cell_size)
-        self.treasure_sprite = self.ve_kho_bau(self.cell_size, "D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/treasure.png")
+        self.treasure_sprite = self.ve_kho_bau(self.cell_size, "D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/treasure.png")
 
 
         # Main game area frame - GIỐNG V1 NHƯNG CHỨA CANVAS
@@ -1164,7 +1164,7 @@ Chúc bạn may mắn! 🍀"""
         # --- PHÁT NHẠC WIN ---
         try:
             pygame.mixer.init()
-            pygame.mixer.music.load(r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds\win.wav")
+            pygame.mixer.music.load(r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/win.wav")
             pygame.mixer.music.play()
         except Exception as e:
             print("Không phát được nhạc chiến thắng:", e)
@@ -1218,7 +1218,7 @@ Chúc bạn may mắn! 🍀"""
 
             # PHÁT LẠI NHẠC NỀN
             try:
-                pygame.mixer.music.load(r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/bg_music.mp3")
+                pygame.mixer.music.load(r"D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/sounds/bg_music.mp3")
                 pygame.mixer.music.play(-1)
             except Exception as e:
                 print("Không phát được nhạc nền:", e)

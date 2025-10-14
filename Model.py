@@ -29,8 +29,8 @@ class TruyTimKhoBauModel():
             self.arr_Map = [
                 [1, 0, 0, 0, 0, 2, 0, 0, 0, 0],
                 [0, 2, 0, 0, 0, 0, 2, 0, 2, 0],
-                [0, 0, 0, 2, 2, 0, 0, 0, 2, 0],
-                [0, 2, 0, 0, 2, 0, 2, 0, 0, 0],
+                [0, 2, 2, 2, 2, 0, 0, 0, 2, 0],
+                [0, 0, 0, 0, 2, 0, 2, 0, 0, 0],
                 [0, 2, 2, 0, 0, 0, 2, 2, 0, 0],
                 [0, 0, 0, 0, 2, 0, 0, 0, 2, 0],
                 [2, 0, 0, 0, 0, 0, 2, 0, 0, 0],
@@ -47,35 +47,39 @@ class TruyTimKhoBauModel():
                 [0, 0, 0, 0, 0, 2, 0, 0, 0, 2],
                 [0, 2, 2, 2, 0, 0, 0, 2, 0, 0],
                 [0, 2, 0, 0, 0, 2, 0, 0, 2, 5],
-                [0, 2, 0, 2, 0, 2, 2, 0, 2, 2],
-                [0, 0, 0, 2, 0, 0, 0, 0, 0, 2],
+                [0, 2, 0, 2, 0, 2, 2, 0, 2, 0],
+                [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
                 [2, 2, 0, 2, 0, 2, 2, 2, 0, 0],
                 [0, 0, 0, 0, 0, 2, 0, 0, 2, 0]
             ]
 
-
-
-
         self.soHang = len(self.arr_Map)
         self.soCot = len(self.arr_Map[0])
 
-
+    # MỘT SỐ HÀM PHỤ
+    #1. Lấy map
     def getMap(self):
         return self.arr_Map
+    
+    #2. Lấy số hàng
     def getSoHang(self):
         return self.soHang
+    
+    #3. Lấy số cột
     def getSoCot(self):
         return self.soCot
-    
 
+    #4. Tính chi phí path cost
     def PathCost(self, x, y, x_old, y_old):
         chiPhi = math.sqrt((x - x_old)**2+(y - y_old)**2)
         return round(chiPhi,1)
     
+    #4. ước lượng chi phí 
     def Herurictics(self, x, y):
         chiPhi = math.sqrt((self.soCot - x)**2+(self.soHang - y)**2)
         return round(chiPhi,1)
     
+    #5. Lấy ra vị trí ban đầu
     def getStart(self):
         # Tìm vị trí bắt đầu (giá trị = 1)
         for i in range(self.soHang):
@@ -84,6 +88,7 @@ class TruyTimKhoBauModel():
                     return (i, j)
         return None
 
+    #6. Lấy ra vị trí kho báu
     def getGoal(self):
         # Tìm vị trí kho báu (giá trị = 5)
         for i in range(self.soHang):
@@ -92,8 +97,8 @@ class TruyTimKhoBauModel():
                     return (i, j)
         return None
 
-# Nhóm 1
-
+    # Nhóm 1: TÌM KIẾM KHÔNG CÓ THÔNG TIN
+    # 1. Depth First Search
     def DFS(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -108,27 +113,22 @@ class TruyTimKhoBauModel():
         while stack:
             (x, y), path = stack.pop()
             step += 1
-            #print(f"\nBước {step}: Đang xét ô {x, y} | Đường đi hiện tại: {path}")
-
+            # kiểm tra vị trí có phải kho báu không
             if (x, y) == goal:
-                print(f"🔹 Tổng số bước duyệt: {step}")
                 return path
-
+            # đanh dấu đã thăm
             if (x, y) in visited:
                 continue
             visited.add((x, y))
-
+            # di chuyển 4 hướng
             for dx, dy in [(0,1),(1,0),(0,-1),(-1,0)]:  # 4 hướng
                 nx, ny = x+dx, y+dy
                 if 0 <= nx < self.soHang and 0 <= ny < self.soCot:
                     if self.arr_Map[nx][ny] != 2 and (nx, ny) not in visited:
                         stack.append(((nx, ny), path+[(nx, ny)]))
-
-        print("Không tìm thấy đường đến kho báu!")
         return None
 
-
-
+    # 2. Breadth First Search
     def BFS(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -140,24 +140,23 @@ class TruyTimKhoBauModel():
 
         while queue:
             (x,y) , path = queue.popleft()
-            # print(x, type(x))
+            # kiểm tra vị trí có phải kho báu không
             if (x,y) == goal:
                 return path
-            
+            # đanh dấu đã thăm
             if (x,y) in visited:
                 continue
             visited.add((x,y))
-
+             # di chuyển 4 hướng
             for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-                # print(type(dx), " ", type(dy))
                 nx, ny = x+dx, y+dy
                 if 0<=nx<self.soHang and 0 <= ny < self.soCot:
                     if self.arr_Map[nx][ny] != 2 and (nx, ny) not in visited:
                         queue.append(((nx, ny), path + [(nx, ny)]))
         return None
-#===============================================================================
 
-# Nhóm 2
+    # Nhóm 2: TÌM KIẾM KHÔNG CÓ THÔNG TIN
+    # 1. A* Search
     def AStarSearch(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -168,25 +167,25 @@ class TruyTimKhoBauModel():
         visited = set()
         while not queue.empty():
             f, g, (x, y), path = queue.get()
+            # kiểm tra vị trí có phải kho báu không
             if (x, y) == goal:
                 return path  # trả về danh sách tọa độ
-
+            # đanh dấu đã thăm
             if (x, y) in visited:
                 continue
             visited.add((x, y))
-
             # 4 hướng
             for dx, dy in [(0,1),(1,0),(0,-1),(-1,0)]:
                 nx, ny = x+dx, y+dy
                 if 0 <= nx < self.soHang and 0 <= ny < self.soCot:
-                    if self.arr_Map[nx][ny] != 2 and (nx, ny) not in visited: # tránh tường
+                    if self.arr_Map[nx][ny] != 2 and (nx, ny) not in visited: 
                         gn = g + self.PathCost(nx, ny, x, y)
                         hn = self.Herurictics(nx, ny)
                         fn = gn + hn
                         queue.put((fn, gn, (nx, ny), path+[(nx, ny)]))
         return None
  
-
+    # 2. Greedy Search
     def GreedySearch(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -199,13 +198,13 @@ class TruyTimKhoBauModel():
         visited = set()
         while not queue.empty():
             h, (x, y), path = queue.get()
+            # kiểm tra vị trí có phải kho báu không
             if (x, y) == goal:
                 return path  # trả về danh sách tọa độ
-
+            # đanh dấu đã thăm
             if (x, y) in visited:
                 continue
             visited.add((x, y))
-
             # 4 hướng
             for dx, dy in [(0,1),(1,0),(0,-1),(-1,0)]:
                 nx, ny = x+dx, y+dy
@@ -216,7 +215,8 @@ class TruyTimKhoBauModel():
         return None
  
 
-    # NHÓM 3: LOCAL SEARCH
+    # Nhóm 3: LOCAL SEARCH
+    # 1. Genetic Algorithm
     def khoiTaoQuanThe(self):
         quanT = []
         soLuong = 6
@@ -235,6 +235,7 @@ class TruyTimKhoBauModel():
             if caThe not in quanT:
                 doFitness = self.fitness(caThe)
                 quanT.append((caThe, doFitness))
+                soLuong -= 1
         return quanT
     
     def fitness(self, caThe):
@@ -246,7 +247,7 @@ class TruyTimKhoBauModel():
     def ChonLoc(self, quanThe):
         chonLocQT = []
         # Chọn 2 cá thể tốt nhất
-        quanThe.sort(key=lambda x: x[1], reverse=True)  
+        quanThe.sort(key=lambda x: x[1], reverse=True) 
         chonLocQT.append(quanThe[0])
         chonLocQT.append(quanThe[1]) 
         
@@ -319,6 +320,7 @@ class TruyTimKhoBauModel():
                 
         return None  
 
+    # 2. Simulated Annealing
     def SimulatedAnnealing(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -336,6 +338,7 @@ class TruyTimKhoBauModel():
             # Manhattan distance vì di chuyển 4 hướng
             return abs(gx - x) + abs(gy - y)
 
+        # tập các đường di chuyển tiếp theo hợp lệ từ vị trí x,y
         def get_neighbors(x, y):
             dirs = [(0,1),(1,0),(0,-1),(-1,0)]
             return [
@@ -354,7 +357,6 @@ class TruyTimKhoBauModel():
 
         for step in range(max_steps):
             if current == goal:
-                # print(f"🎯 Tìm thấy kho báu sau {step} bước bằng SA cải tiến!")
                 return path
 
             neighbors = [n for n in get_neighbors(*current) if n not in visited]
@@ -400,13 +402,10 @@ class TruyTimKhoBauModel():
             if T < Tmin:
                 break
 
-        # print("⚠️ Không đến được kho báu — SA kết thúc do nhiệt độ quá thấp.")
         return path
 
-#=========================================================================
-
-# NHÓM 4: MÔ TRƯỜNG PHỨC TẠP
-
+    # Nhóm 4: MÔ TRƯỜNG PHỨC TẠP
+    # 1. And-Or Tree Search
     def and_or_tree_search(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -454,13 +453,14 @@ class TruyTimKhoBauModel():
         return plan
 
 
-
+    # 2. Tìm kiếm trong môi trường nhìn thấy một phần (vị trí (1,3))
     def chiPhiHerurictics_Partial(self, niemTin, FlagVT):
         chPhi = 0
         goal = self.getGoal()
         batBuoc = (1, 3)
         for path, arr in niemTin:
             vtCuoi = path[-1]
+            # Càng ra xa vị trí (1, 3) thì chi phí càng lớn
             if FlagVT == False:
                 chPhi += (50 +  math.sqrt((vtCuoi[0] - batBuoc[0])**2 + (vtCuoi[1] - batBuoc[1])**2))
             else:
@@ -515,7 +515,6 @@ class TruyTimKhoBauModel():
                     break
             if Flag:
                 diQuaFix = True
-                print("Đoạn đường chứa 1,3: ",niemTin)
                 priorityQueue.queue.clear()
                 priorityQueue.put((h, niemTin))
                 break    
@@ -572,7 +571,7 @@ class TruyTimKhoBauModel():
 
         return None
 
-#=================================
+    # Nhóm 5: Tìm kiếm thõa mãn ràng buộc
     def ArcConsistencyAlgorithms(self):
         # tập biến và miền giá trị
         tapBien = []
@@ -581,9 +580,9 @@ class TruyTimKhoBauModel():
         tapBien.append((2, Dy))
         # tập rằng buộc: loại bỏ hướng đi của người chơi nếu có 3 hướng di chuyển đều là tường, nếu 2 hướng là tường và một hướng còn lại là ngoài mê cung, 2 hướng tường và một hướng đã bị xóa khỏi miền giá trị trước đó. 
         tapBienRG = self.AC3(tapBien)
-        result = self.BackTracking(tapBienRG, [(0,0)], (0, 0), copy.deepcopy(self.arr_Map))
+        start = self.getStart()
+        result = self.BackTracking(tapBienRG, [start], start, copy.deepcopy(self.arr_Map))
         return result
-
 
     def mienGiaTri(self):
         duongDi = []
@@ -646,12 +645,10 @@ class TruyTimKhoBauModel():
                     revised = True
                     arrDelete.append(i)
                     arr[i[0]][i[1]] = -1
+            # Xóa các giá trị bên trong miền giá trị
             for j in arrDelete:
-                
                 x[1].remove(j)
-        
             return revised, x[1]
-    
         return revised, None
     
     def BackTracking(self, tapB, vt, start: tuple, arr):
@@ -683,6 +680,7 @@ class TruyTimKhoBauModel():
             
         return None
 
+    # 2. CSP sử dụng với Backtracking
     def CSP_Backtracking(self):
         start = self.getStart()
         goal = self.getGoal()
@@ -762,15 +760,13 @@ class TruyTimKhoBauModel():
 
 
     # NHÓM 6: ĐỐI KHÁNG 
-
+    # 1. Alpha-Beta Pruning
     def AlphaBetaPruning(self):
         huong = [(0, -1), (-1, 0), (1, 0), (0, 1)]
         start = self.getStart()
         self.soTT = 0
         bestScore = -math.inf
         bestSate = None
-        #state = ([start], copy.deepcopy(self.arr_Map))
-        # print("Điểm bắt đầu: ", start)
         for dx, dy in huong:
             x = dx + start[0]
             y = dy + start[1]
@@ -788,7 +784,6 @@ class TruyTimKhoBauModel():
         if goal not in bestSate: 
             return None
         return bestSate
-
 
     def MaxValue_AB(self, state: tuple, alpha, beta):
         path, arr = state
@@ -809,7 +804,6 @@ class TruyTimKhoBauModel():
                 return v, VT
             alpha = max(v, alpha)
         return v, VT
-
 
     def MinValue_AB(self, state: tuple, alpha, beta):
         path, arr = state
@@ -832,8 +826,6 @@ class TruyTimKhoBauModel():
             beta = min(v, beta)
         return v, VT
 
-
-
     def Result(self, state: tuple, dx, dy):
         path, arr = state
         vtCuoi = path[-1]
@@ -842,17 +834,16 @@ class TruyTimKhoBauModel():
         if x >= 0 and x < self.soHang and y >= 0 and y < self.soCot:
             if arr[x][y] == 0 or arr[x][y] == 5:
                 arrCopy = copy.deepcopy(arr)
-                arrCopy[x][y] = 1
+                if arr[x][y] != 5:
+                    arrCopy[x][y] = 1
                 vtNew = copy.deepcopy(path)
                 vtNew.append((x, y))
                 self.soTT += 1
-                # print("Vị trí result: ", vtNew)
                 return (vtNew, arrCopy)
         return None
         
-    
+    # kiểm tra điều kiện
     def TerminalTest(self, state, arr):
-        # print("TermialTest")
         goal = self.getGoal()
         x = state[-1][0]
         y = state[-1][1]
@@ -867,6 +858,7 @@ class TruyTimKhoBauModel():
                     return False
         return True 
 
+    # Tính giá trị đánh giá
     def Utility(self, path):
         goal = self.getGoal()
         x, y = path[-1]
@@ -876,71 +868,68 @@ class TruyTimKhoBauModel():
         distance = math.sqrt((x - goal[0])**2 + (y - goal[1])**2)
         return 100 - distance
 
-
-    def minimax(self, depth=3):
+    # 2. MiniMax
+    # Giải thuật MiniMax
+    def MiniMax(self):
+        huong = [(0, -1), (-1, 0), (1, 0), (0, 1)]
         start = self.getStart()
+        self.soTT = 0
+        bestScore = -math.inf
+        bestState = None
+
+        for dx, dy in huong:
+            result = self.Result(([start], copy.deepcopy(self.arr_Map)), dx, dy)
+            if result is None:
+                continue
+
+            score, path = self.MaxValue(result)
+            if score > bestScore:
+                bestScore = score
+                bestState = path
+
         goal = self.getGoal()
-        if not start or not goal:
+        if bestState is None or goal not in bestState:
+            print("Không tìm thấy đường đi hợp lệ.")
             return None
 
-        moves = [(0,1), (1,0), (0,-1), (-1,0)]
+        print("✅ Tìm thấy đường đi:", bestState)
+        print("Số trạng thái duyệt:", self.soTT)
+        return bestState
 
-        def evaluate(state):
-            gx, gy = goal
-            x, y = state
-            return -((gx - x)**2 + (gy - y)**2)**0.5  # càng gần đích điểm càng cao
 
-        def get_neighbors(state):
-            x, y = state
-            neighbors = []
-            for dx, dy in moves:
-                nx, ny = x + dx, y + dy
-                if 0 <= nx < self.soHang and 0 <= ny < self.soCot and self.arr_Map[nx][ny] != 2:
-                    neighbors.append((nx, ny))
-            return neighbors
+    def MaxValue(self, state):
+        path, arr = state
+        if self.TerminalTest(path, arr):
+            return self.Utility(path), path
 
-        def minimax(state, depth, maximizingPlayer, alpha, beta):
-            if depth == 0 or state == goal:
-                return evaluate(state), [state]
+        v = -math.inf
+        bestPath = None
+        huong = [(0, -1), (-1, 0), (1, 0), (0, 1)]
+        for dx, dy in huong:
+            newState = self.Result(state, dx, dy)
+            if newState is None:
+                continue
+            score, p = self.MinValue(newState)
+            if score > v:
+                v = score
+                bestPath = p
+        return v, bestPath
 
-            if maximizingPlayer:  # người chơi
-                maxEval = float('-inf')
-                best_path = []
-                for child in get_neighbors(state):
-                    eval_val, path = minimax(child, depth - 1, False, alpha, beta)
-                    if eval_val > maxEval:
-                        maxEval = eval_val
-                        best_path = [state] + path
-                    alpha = max(alpha, eval_val)
-                    if beta <= alpha:
-                        break
-                return maxEval, best_path
-            else:  # đối thủ (chọn hướng xấu)
-                minEval = float('inf')
-                worst_path = []
-                for child in get_neighbors(state):
-                    eval_val, path = minimax(child, depth - 1, True, alpha, beta)
-                    if eval_val < minEval:
-                        minEval = eval_val
-                        worst_path = [state] + path
-                    beta = min(beta, eval_val)
-                    if beta <= alpha:
-                        break
-                return minEval, worst_path
 
-        # Bắt đầu đi từ start và tìm từng bước cho đến khi tới goal
-        path = [start]
-        current = start
-        while current != goal:
-            _, best = minimax(current, depth, True, float('-inf'), float('inf'))
-            if len(best) < 2:
-                # print("⚠️ Bị kẹt, không thể đến kho báu.")
-                break
-            current = best[1]  # chọn bước kế tiếp
-            path.append(current)
+    def MinValue(self, state):
+        path, arr = state
+        if self.TerminalTest(path, arr):
+            return self.Utility(path), path
 
-            if current == goal:
-                # print("🎯 Đã đến kho báu bằng Minimax có đối kháng!")
-                break
-
-        return path
+        v = math.inf
+        bestPath = None
+        huong = [(0, -1), (-1, 0), (1, 0), (0, 1)]
+        for dx, dy in huong:
+            newState = self.Result(state, dx, dy)
+            if newState is None:
+                continue
+            score, p = self.MaxValue(newState)
+            if score < v:
+                v = score
+                bestPath = p
+        return v, bestPath

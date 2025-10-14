@@ -13,7 +13,7 @@ class StartScreen:
 
         self.on_start_callback = on_start_callback
 
-        self.background("D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/Demo1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/demo.png")
+        self.background("D:/HCMUTE_IT/HK1_2025-2026/Artificial Intelligence/BaoCaoCuoiKy/BaoCaoCK_1/project_nhom_AI/AI_TruyTimKhoBau_2025/picture/demo.png")
         self._create_play_button()
 
     def background(self, image_path):

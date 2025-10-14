@@ -20,16 +20,18 @@
 #### Breadth First Search
 - Thuật toán tìm kiếm theo chiều rộng sử dụng cấu trúc Queue để lưu trữ các trạng thái sinh ra. Queue sẽ hoạt động theo cơ chế FIFO. Nếu theo cấu trúc cây, BFS sẽ duyệt hết các lá ở cùng mức trước xong mới đến các mức sâu hơn. Do vậy, nếu trong môi trường trạng thái con sinh nhiều thì độ rộng sẽ rất dài và sẽ khá tốn không gian lưu trữ.
 - Hình ảnh (.gif) minh họa thuật toán:
+![](/picture/CKBFS.gif)
 
 #### Depth First Search
 - Thuật toán tìm kiếm theo chiều sâu cách thức hoạt động gần giống BFS chỉ khác cấu trúc lưu trữ. DFS sử dụng cấu trúc lưu trữ là Stack hoạt động theo cơ chế LIFO. Thuật toán này sẽ tối ưu trong trường hợp các kho báu nằm ở một nhánh cụ thể. Nhưng nó sẽ tốn thời gian trong việc duyệt độ sâu vô hạn. khi thuật toán đi tìm mãi nhưng không thấy được kho báu vì kho báu nằm quá sâu. Thì lúc này thuật toán sẽ trở bên không tối ưu. Do phải duyệt độ sâu quá  lớn nhưng về mặt không gian thì thuật toán này tối ưu hơn BFS . Trong trường hợp xấu nhất thuật toán này sẽ có độ phức tạp thời gian bằng BFS đều là O(pd) nhưng về mặt không gian lại tốt hơn là O(p.d) còn BFS là O(pd).
 - Hình ảnh (.gif) minh hoặc thuật toán:
+![](/picture/CKDFS.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| Breadth First Search | | |
-| Depth First Search   | | | 
+| Breadth First Search |  0.245ms|    19        |
+| Depth First Search   |  0.589ms|    24        | 
 
 
 ### Nhóm 2: tìm kiếm có thông tin
@@ -38,7 +40,7 @@
 - Mỗi lần di chuyển Greedy sẽ gọi h(n) để ước lượng chi phí từ vị trí hiện tại đến vị trí chứa kho báu. H(n) được gọi là Hàm Herurictics để ước lượng chi phí từ vị trí hiện tại đến kho báu. Trong bài h(n) được xây dựng dựa trên công thức tính khoảng cách từ vị trí hiện tại đến vị trí chứa kho báu.
 - Thuật toán này muốn tối ưu  sải ước lượng chi phí một các chính xác. Nếu ước lượng sai thuật toán có thể tìm ra đường đi không tối ưu so với thực tế.
 - Hình ảnh (.gif) minh họa thuật toán:
-
+![](/picture/CKGreedy.gif)
 
 #### A* Search
 - Thuật toán A* sử dụng cấu trúc lưu trữ Priority Queue. Thuật toán này chọn hướng đi có chi phí thấp nhất đi trước. Trong đó chi phí được tính theo công thức:
@@ -47,12 +49,13 @@ trong đó: f(n): là tổng chi phí.
 	     g(n): chi phí tính từ vị trí xuất phát đến vị trí hiện tại (Path Cost).
 	     h(n): ước lượng chi phí từ vị trí hiện tại đến kho báu (Herurictics).
 - Hình ảnh (.gif) minh họa thuật toán:
+![](/picture/CKAS.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| Greedy Search | | |
-| A* Search   | | | 
+| Greedy Search |    0.541ms     |     19       |
+| A* Search     |    1.164ms     |     19       | 
 
 
 ### Nhóm 3: tìm kiếm local search
@@ -60,7 +63,7 @@ trong đó: f(n): là tổng chi phí.
 - Thuật toán Simulated Annealing (SA) là một phương pháp tìm kiếm ngẫu nhiên được lấy cảm hứng từ quá trình tôi luyện kim loại (annealing) trong vật lý. Khi nung nóng kim loại rồi làm nguội dần, các nguyên tử có xu hướng sắp xếp lại để đạt được cấu trúc năng lượng thấp nhất. Trong bài toán này, SA được sử dụng để tìm đường đi từ vị trí xuất phát (start) đến kho báu (goal) trên bản đồ mê cung
 
 - Hình ảnh (.gif) minh họa thuật toán: 
-
+![](/picture/CKSA.gif)
 
 #### Genetic Search
 - Giải thuật di truyền được thực hiện qua các bước chính như: khởi tại quần thể, chọn lọc các cá thể phù hợp, lai ghép các cặp cá thể, đột biến cá thể. 
@@ -75,45 +78,48 @@ $$
 - Sau quá trình độ biến sẽ đưa cá thể sinh ra vào quần thể mới tiếp tực quá trình trên đến khi nào quần thể mới có số lượng là 6 thì sẽ kiểm tra xem trong quần thể mới có cả thể nào chứa kho báu chưa nếu chưa thì tiếp tục chọn lại, lai ghép, đột biến với quần thể mới sinh ra đó.
 - Giải thuật di truyền được sử dụng trong tìm kiếm đường đi sẽ rất khó để tìm ra đường chính xác. Bởi vì, trong quá trình lai ghép và đột biến sẽ làm đa dạng nhưng cũng làm cho đường đi bị lệnh và không ra một đường chính xác.
 - Hình ảnh (.gif) minh họa thuật toán:
+![](/picture/CKGA.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| Simulted Annealing | | |
-| Genetic Algorithms   | | | 
+| Simulted Annealing | 0.362ms   |     26       |
+| Genetic Algorithms   | NA      |     NA       | 
 
 ### Nhóm 4: tìm kiếm trong môi trường phức tạp
 #### And-Or Tree Search
 - Thuật toán AND–OR Tree Search là một dạng mở rộng của tìm kiếm theo cây (Tree Search) dùng để giải quyết bài toán có nhiều khả năng hoặc điều kiện rẽ nhánh, trong đó một số hành động có thể dẫn đến nhiều trạng thái con (AND nodes), và từ mỗi trạng thái, có thể có nhiều lựa chọn hành động khác nhau (OR nodes). Trong bài toán tìm đường, mỗi ô là một trạng thái, và việc di chuyển đến các ô kề là các hành động khả thi.
 - Hình ảnh (.gif) minh họa thuật toán:
-
+![](/picture/CKAO.gif)
 
 #### Tìm kiếm trong môi trường nhìn thấy một phần
 - Thuật toán này có thể được sử dụng với các nhóm thuật toán tìm kiếm có thông tin và không có thông tin. Trong chương trình sử dụng với thuật toán Greedy. Trong thuật toán chỉ nhìn thấy một phần giống như trong bản đồ kho báu biết trước được một vị trí có thể tìm đến kho báu. Thì trong trò chơi cũng vậy, vị trí được biết sẽ tìm đến được mục tiêu là vị trí giả sử (1, 3). Ban đầu thuật toán sử dụng xây dựng các niềm tin ban đầu dùng Greedy để tìm đường đi đến vị trí đó. Khi tìm thấy được thuật toán sẽ bắt đầu tìm đường đến kho báu.
 - Trong thuật toán này có thể loại bỏ được các đường đi vô nghĩa, khi biết trước được một vị trí từ đó ta có thể tìm đường đến mục tiêu. Thuật toán này được coi là tối ưu hơn thuật toán tìm kiếm trong môi trường không nhìn thấy. Ngoài ra, thuật toán muốn chạy nhanh hơn thì trong niềm tin mục tiêu phải chứa chiều đường đi đến kho báu mà trong đó phải đi qua vị trí (1, 3).
 - Hình ảnh (.gif) minh họa thuật toán: 
+![](/picture/CKNTMP.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| Breadth First Search | | |
-| Depth First Search   | | | 
+| And-Or Tree   |   0.433ms|         18         |
+| Partially Observable   | 0.375ms |   19       | 
 
 ### Nhóm 5: tìm kiếm thõa mãn ràng buộc
 #### CPS Backtracking
 - Thuật toán CSP Backtracking (Constraint Satisfaction Problem) được sử dụng để giải bài toán tìm đường trong mê cung dựa trên việc thỏa mãn các ràng buộc giữa các biến (ở đây là các ô của bản đồ). Thuật toán hoạt động theo nguyên tắc thử – sai (trial and error), kết hợp với việc kiểm tra tính hợp lệ (consistency) để loại bỏ các đường đi không thỏa mãn trước khi tiếp tục mở rộng tìm kiếm. 
 - Hình ảnh (.gif) minh họa thuật toán:
-
+![](/picture/CKBTK.gif)
 
 #### Arc Consistency (AC3)
 - Thuật toán AC3 có thể được coi là phiên bản tốt hơn của Backtracking. Bởi vì, trước khi đưa vào trong backtracking thì thuật toán sẽ giới hạn các miền giá trị làm tăng khả năng tìm thấy kho báu nhanh hơn.
 - Hình ảnh (.gif) minh họa thuật toán: 
+![](/picture/CKAC3.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| CSP Backtracking | | |
-| AC3   | | | 
+| CSP Backtracking | 0.556ms     |    18        |
+| AC3   |    4.152ms             |    20        | 
 
 ### Nhóm 6: tìm kiếm đối kháng
 #### Minimax
@@ -127,19 +133,20 @@ $$
 \-	Môi trường (đối thủ) là MIN: khiến người chơi đi xa hơn hoặc bị kẹt. 
 
 - Hình ảnh (.gif) minh họa thuật toán: 
-
+![](/picture/CKMM.gif)
 
 
 #### Alpha-Beta Pruning
 - Thuật toán Alpha-Beta là phiên bản tối ưu hơn của Minimax. Thay vì thử hết đường thì Alpha-Beta chỉ chọn những đường đảm bảo ngưỡng giá trị alpha và beta nếu lối đi nào vượt quá thì thuật toán sẽ không xét.
 - Nhờ quá trình này thuật toán sẽ cắt tỉa bớt các trường hợp không hợp lệ, do đó mà thuật toán sẽ chạy nhanh và hiệu quả hơn thuật toán Minimax.
 - Hình ảnh (.gif) minh họa thuật toán:
+![](/picture/CKAB.gif)
 
 #### Bảng đánh giá thuật toán 
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
-| Minimax | | |
-| Alpha-Beta Pruning   | | | 
+| Minimax       |   78.425ms     |      23      |
+| Alpha-Beta Pruning   | 34.153ms|    22        | 
 
 ## Thư viện và môi trường cài đặt
 - Môi trường: [python bản 3.13.7](https://www.python.org/downloads/)

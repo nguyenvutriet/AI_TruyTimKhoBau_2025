@@ -35,7 +35,7 @@ class TruyTimKhoBauContronller:
         elif "And Or Tree" in name:
             result = self.model.and_or_tree_search()
         elif "MiniMax" in name:
-            result = self.model.minimax()
+            result = self.model.MiniMax()
         elif "Genetic Algorithms" in name:
             result = self.model.GeneticAlgorithms()
         elif "PartialObservable Greedy" in name:
