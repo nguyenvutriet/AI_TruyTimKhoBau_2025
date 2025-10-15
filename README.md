@@ -9,11 +9,11 @@
 # Trò chơi Truy Tìm Kho Báu 
 ## Giới thiệu
 - Trò chơi được xây dựng nhằm mục đích đánh giá một số thuật toán trong 6 nhóm thuật toán: tìm kiếm không có thông tin, tìm kiếm có thông tin, tìm kiếm local search, tìm kiếm trong  môi trường phức tạp, tìm kiếm thõa mãn ràng buộc, tìm kiếm đối kháng. 
-- Phân tích PEAS của bài toán: 
-\- Performance: tìm kiếm đường đến kho báu nhanh nhất, số bước đi và thời gian ít nhất có thể, tránh cái vật cản trong quá trình tìm kiếm.
-\- Enviroment: lưu bảng đồ bằng ma trận, có các vật cản, kho báu, nhân vật tìm kiếm kho báu. Loại môi trường: môi trường có thể quan sát, môi trường tĩnh, rời rạc, môi trường xác định, môi trường quan sát toàn phần.
-\- Actuators: di chuyển sang trái, phải, lên, xuống.
-\- Ensors: vị trí xuất phát, vị trí kho báu đang ở, 4 hướng di chuyển là vật cản hay ô có thể di được.
+- Phân tích PEAS của bài toán: <br>
+\- Performance: tìm kiếm đường đến kho báu nhanh nhất, số bước đi và thời gian ít nhất có thể, tránh cái vật cản trong quá trình tìm kiếm.<br>
+\- Enviroment: lưu bảng đồ bằng ma trận, có các vật cản, kho báu, nhân vật tìm kiếm kho báu. Loại môi trường: môi trường có thể quan sát, môi trường tĩnh, rời rạc, môi trường xác định, môi trường quan sát toàn phần.<br>
+\- Actuators: di chuyển sang trái, phải, lên, xuống.<br>
+\- Ensors: vị trí xuất phát, vị trí kho báu đang ở, 4 hướng di chuyển là vật cản hay ô có thể di được.<br>
 
 ## Các nhóm thuật toán
 ### Nhóm 1: tìm kiếm không có thônng tin.
@@ -43,11 +43,11 @@
 ![](/picture/CKGreedy.gif)
 
 #### A* Search
-- Thuật toán A* sử dụng cấu trúc lưu trữ Priority Queue. Thuật toán này chọn hướng đi có chi phí thấp nhất đi trước. Trong đó chi phí được tính theo công thức:
-f(n) = g(n) + h(n)
-trong đó: f(n): là tổng chi phí.
-	     g(n): chi phí tính từ vị trí xuất phát đến vị trí hiện tại (Path Cost).
-	     h(n): ước lượng chi phí từ vị trí hiện tại đến kho báu (Herurictics).
+- Thuật toán A* sử dụng cấu trúc lưu trữ Priority Queue. Thuật toán này chọn hướng đi có chi phí thấp nhất đi trước. Trong đó chi phí được tính theo công thức:<br>
+f(n) = g(n) + h(n)<br>
+trong đó: f(n): là tổng chi phí.<br>
+	     g(n): chi phí tính từ vị trí xuất phát đến vị trí hiện tại (Path Cost). <br>
+	     h(n): ước lượng chi phí từ vị trí hiện tại đến kho báu (Herurictics). <br>
 - Hình ảnh (.gif) minh họa thuật toán:
 ![](/picture/CKAS.gif)
 
@@ -69,9 +69,8 @@ trong đó: f(n): là tổng chi phí.
 - Giải thuật di truyền được thực hiện qua các bước chính như: khởi tại quần thể, chọn lọc các cá thể phù hợp, lai ghép các cặp cá thể, đột biến cá thể. 
 - Trong trò chơi giải thuật khởi tạo quần thể có 6 cả thể và đặc biệt là các cả thể này chính là mảng lưu vị trí được random ngẫu nhiên hướng đi từ điểm xuất phát với quá trình lặp là 21 lần. Các cả thể trong này không có thể có độ dài bằng nhau hoặc không bởi vì khi random hướng thì có di hướng đó là tường ngoặc ngỏ cục sẽ bị loại.
 - Độ fitness dựa trên công thức:
-$$
-Fitness = \sqrt{soHang^2 + soCot^2} - \sqrt{(goalX - x)^2 + (goalY - y)^2}
-$$
+**Fitness** = √(soHang² + soCot²) − √((goalX − x)² + (goalY − y)²)
+
 	
 - Chiến thuật lựa chọn sẽ lựa chọn 2 thằng  có độ fitness cao nhất (có vị trí gần kho báu nhất) và random ngẫu nhiên một cá thể trong 4 cả thể còn lại.
 - Quá trình lai ghép giữa các cặp cả thể sẽ sử dụng phép lại đồng nhất với một tỉ lệ lai ghép là 65%. Quá trình độ biến cũng sử dụng phép đồng nhất với tỉ lệ đột biến là 5%.
@@ -124,13 +123,13 @@ $$
 ### Nhóm 6: tìm kiếm đối kháng
 #### Minimax
 - Thuật toán MiniMax là một kỹ thuật tìm kiếm thường được áp dụng trong các trò chơi đối kháng (như cờ vua, cờ caro, hoặc bài toán đường đi có chướng ngại). Mục tiêu của thuật toán là tối ưu hóa quyết định của người chơi trong môi trường có đối thủ, bằng cách giả lập cả hai bên (người chơi và đối thủ) và chọn nước đi tốt nhất trong tình huống xấu nhất. 
-- Nguyên lý hoạt động 
-\-	Người chơi (MAX) cố gắng tối đa hóa điểm số (giá trị heuristic). 
-\-	Đối thủ (MIN) cố gắng tối thiểu hóa điểm số (làm cho người chơi thua). 
-\-	MiniMax duyệt qua toàn bộ cây trạng thái đến độ sâu xác định (depth) để đánh giá nước đi nào mang lại kết quả tốt nhất trong tình huống xấu nhất. 
-- Trong bài toán tìm kho báu, ta mô phỏng: 
-\-	Người chơi là MAX: muốn đi gần đến kho báu. 
-\-	Môi trường (đối thủ) là MIN: khiến người chơi đi xa hơn hoặc bị kẹt. 
+- Nguyên lý hoạt động: <br> 
+\-	Người chơi (MAX) cố gắng tối đa hóa điểm số (giá trị heuristic). <br>
+\-	Đối thủ (MIN) cố gắng tối thiểu hóa điểm số (làm cho người chơi thua). <br>
+\-	MiniMax duyệt qua toàn bộ cây trạng thái đến độ sâu xác định (depth) để đánh giá nước đi nào mang lại kết quả tốt nhất trong tình huống xấu nhất. <br>
+- Trong bài toán tìm kho báu, ta mô phỏng: <br>
+\-	Người chơi là MAX: muốn đi gần đến kho báu. <br>
+\-	Môi trường (đối thủ) là MIN: khiến người chơi đi xa hơn hoặc bị kẹt. <br>
 
 - Hình ảnh (.gif) minh họa thuật toán: 
 ![](/picture/CKMM.gif)
@@ -146,7 +145,7 @@ $$
 | Thuật toán    |   Thời gian    | Số bước đi   | 
 |---------------|----------------|--------------|
 | Minimax       |   78.425ms     |      23      |
-| Alpha-Beta Pruning   | 34.153ms|    22        | 
+| Alpha-Beta Pruning   | 31.210ms|    22        | 
 
 ## Thư viện và môi trường cài đặt
 - Môi trường: [python bản 3.13.7](https://www.python.org/downloads/)

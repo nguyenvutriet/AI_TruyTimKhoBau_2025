@@ -797,7 +797,7 @@ class TruyTimKhoBauModel():
             if stateNew is None:
                 continue
             point, vt = self.MinValue_AB(stateNew, alpha, beta)
-            if point >= v:
+            if point > v:
                 v = point
                 VT = vt
             if v >= beta:
@@ -818,7 +818,7 @@ class TruyTimKhoBauModel():
             if stateNew is None:
                 continue
             point, vt = self.MaxValue_AB(stateNew , alpha, beta)
-            if point <= v:
+            if point < v:
                 v = point
                 VT = vt
             if v <= alpha:
